@@ -25,7 +25,7 @@ public class TrelloClient {
     private String trelloAppKey;
     @Value("${trello.app.token}")
     private String trelloToken;
-    @Value("rafaywica")
+    @Value("${trello.app.username}")
     private String trelloAppUsername;
 
     private URI getUri() {
