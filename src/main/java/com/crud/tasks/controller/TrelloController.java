@@ -18,6 +18,11 @@ public class TrelloController {
     private final TrelloClient trelloClient;
 
     @GetMapping("getTrelloBoards")
+    public List<TrelloBoardDto> getTrelloBoards() {
+        return trelloClient.getTrelloBoards();
+    }
+
+    /*@GetMapping("getTrelloBoards")
     public Optional<List<TrelloBoardDto>> getTrelloBoards() {
 
         // GET request
@@ -37,7 +42,7 @@ public class TrelloController {
             });
         });
         return Optional.of(trelloBoards);
-    }
+    }*/
 
     @PostMapping("createTrelloCard")
     public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
