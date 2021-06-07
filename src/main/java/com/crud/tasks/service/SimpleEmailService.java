@@ -1,5 +1,6 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.Mail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +27,14 @@ public class SimpleEmailService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleMailMessage.class);
     @Autowired
     private MailCreatorService mailCreatorService;
+    @Autowired
+    AdminConfig adminConfig;
 
     public void send(final Mail mail) {
 
             try {
                 //SimpleMailMessage mailMessage = createMailMessage(mail);
                 javaMailSender.send(createMimeMessage(mail));
-                javaMailSender.send(createMimeMessage2(mail));
                 //javaMailSender.send(mailMessage);
                 log.info("Email has been sent successfully.");
             } catch (MailException e) {
@@ -64,5 +66,20 @@ public class SimpleEmailService {
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()));
         return mailMessage;
+    }
+
+    @Scheduled(cron = "0 0 10 * * *")
+    public void sendTasksAvailableUpdate() {
+
+        try {
+            javaMailSender.send(createMimeMessage2(new Mail(
+                    adminConfig.getAdminMail(),
+                    "Daily tasks available quantity reminder",
+                    "This is Your daily reminder of how many tasks You have available.")
+            ));
+            log.info("Email has been sent successfully.");
+        } catch (MailException e) {
+            log.error("Failed to process email sending" + e.getMessage(), e);
+        }
     }
 }
