@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 @RequiredArgsConstructor
 public class SimpleEmailService {
 
+    @Autowired
     private final JavaMailSender javaMailSender;
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleMailMessage.class);
     @Autowired
