@@ -118,6 +118,9 @@
                                             </tbody>
                                         </table>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+                                            You have <span th:text="${task_list_size}"></span> tasks available.
+                                        </p>
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
                                             Tasks list:
                                         </p>
                                         <ul th:each="task : ${task_list}">
