@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class CompanyConfig {
-    @Value("$company.name")
+    @Value("${company.name}")
     private String companyName;
-    @Value("$company.mail")
+    @Value("${company.mail}")
     private String companyEmail;
-    @Value("$company.phonenumber")
+    @Value("${company.phonenumber}")
     private String companyTelephone;
-    @Value("$company.address")
+    @Value("${company.address}")
     private String companyAddress;
 }
