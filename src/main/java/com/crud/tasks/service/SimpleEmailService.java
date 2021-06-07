@@ -11,6 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public class SimpleEmailService {
             try {
                 //SimpleMailMessage mailMessage = createMailMessage(mail);
                 javaMailSender.send(createMimeMessage(mail));
+                javaMailSender.send(createMimeMessage2(mail));
                 //javaMailSender.send(mailMessage);
                 log.info("Email has been sent successfully.");
             } catch (MailException e) {
@@ -47,6 +49,14 @@ public class SimpleEmailService {
         };
     }
 
+    private MimeMessagePreparator createMimeMessage2(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.buildTasksAvailableUpdateMail(mail.getMessage()), true);
+        };
+    }
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
