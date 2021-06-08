@@ -52,7 +52,7 @@ public class TaskControllerTest {
         //When & Then
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/v1/task/getTasks")
+                        .get("/v1/tasks")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
@@ -70,7 +70,7 @@ public class TaskControllerTest {
 
         //When & Then
         mockMvc
-                .perform(MockMvcRequestBuilders.get("/v1/task/getTask?taskId=1")
+                .perform(MockMvcRequestBuilders.get("/v1/tasks/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
@@ -90,7 +90,7 @@ public class TaskControllerTest {
 
         //When & Then
         mockMvc
-                .perform(MockMvcRequestBuilders.put("/v1/task/updateTask")
+                .perform(MockMvcRequestBuilders.put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -112,7 +112,7 @@ public class TaskControllerTest {
 
         //When & Then
         mockMvc
-                .perform(MockMvcRequestBuilders.post("/v1/task/createTask")
+                .perform(MockMvcRequestBuilders.post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
